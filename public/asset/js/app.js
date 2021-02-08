@@ -29,10 +29,11 @@ form.addEventListener("submit", (e) => {
 function checkInputs() {
     // get value from the input
     // const nameValue = username.values.trim();
-    const nameValue = username.values;
-    const emailValue = email.values;
-    const passwordValue = password.values;
-    const confirmsValue = confirms.values;
+    const nameValue = username.value.trim();
+    const emailValue = email.value.trim();
+    const passwordValue = password.value.trim();
+    const confirmsValue = confirms.value.trim();
+    console.log(nameValue);
 
     if (nameValue === "") {
         setErrorFor(username, "Username cannot be blank");
@@ -60,6 +61,23 @@ function checkInputs() {
         setErrorFor(confirms, "Passwords does not match");
     } else {
         setSuccessFor(confirms);
+        //I creat this line
+        axios({
+            method: "POST",
+            url: "http://localhost:3000/",
+            data: {
+                username: username.value.trim(),
+                email: email.value.trim(),
+                password: password.value.trim(),
+            },
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        window.location.href = "/login"; //This one redirect to login page if you want to change you change is the String
     }
 }
 

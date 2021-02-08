@@ -86,6 +86,7 @@ form.sign-in-form {
   color: #acacac;
   transition: 0.5s;
   font-size: 1.1rem;
+  display: block;
 }
 
 .input-field input {
@@ -117,14 +118,13 @@ form.sign-in-form {
 }
 
 .input-field small {
+  /* I change this line of code such as delete position: and add grid-column */
 	color: #e74c3c;
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	visibility: hidden;
+  grid-column: 1/3;
 }
 
-.form-control.error small {
+.input-field.error small {
 	visibility: visible;
 }
 

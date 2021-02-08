@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path");
+const User = require('./models/user');
 const app = express();
 const routes = require("./routes/admin");
 
@@ -32,9 +33,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(routes);
 app.post("/", (req, res) => {
     console.log(req.body);
-    if (req.body.password === req.body.confirmPassword) {
-        console.log("successfull");
-    }
+    // if (req.body.password === req.body.confirmPassword) {
+    //     console.log("successfull");
+    // }
+    const users = new User({
+        username: req.body.username,
+        password: req.body.password,
+        registerAt: req.body.email
+    });
+    users.save((err) => {
+        if (!err) {
+            console.log("Save complete !");
+        } else {
+            console.log(err);
+        }
+    });
 });
 
 mongoose
@@ -42,7 +55,7 @@ mongoose
         "mongodb+srv://Sampong:Samponglim3788@cluster0.8rggm.mongodb.net/authentications?retryWrites=true&w=majority"
     )
     .then((result) => {
-        console.log(result);
+        // console.log(result);
         console.log("Database is connected.");
         app.listen(3000);
     })
